@@ -1,0 +1,441 @@
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<p style="max-width: 900px; font-size: 13px; color: white; background-color: #07b315; margin: 0 auto; padding: 5px 0 5px 5px;">Some footer</p>
+	</body>
+
+	<!-- General things -->
+	<script type="text/javascript">
+		function setCookie(name,value,days) {
+			var expires = "";
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime() + (days*24*60*60*1000));
+				expires = "; expires=" + date.toUTCString();
+			}
+			document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+		}
+		function getCookie(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0;i < ca.length;i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			}
+			return null;
+		}
+		function eraseCookie(name) {
+			document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		}
+
+		function strToHtml(str) {
+			var ret = "";
+			for (var i = 0; i < str.length; i++) {
+				if (str[i] == "<") {
+					ret += "&lt;";
+				} else if (str[i] == ">") {
+					ret += "&gt;";
+				} else if (str[i] == " ") {
+					ret += "&nbsp;";
+				} else {
+					ret += str[i];
+				}
+			}
+
+			return ret;
+		}
+	</script>
+
+	<!-- Page enhancements for UI v1 (UI v1+) -->
+	<script type="text/javascript">
+		//crash_script;
+		if (getCookie("ui_version") == "v1") { // This code needs to load always, except if UI v1 is to be used
+			crash_script;
+		}
+
+		var pathElement = document.querySelector('#listing h1');
+		pathElement.className = 'listing';
+
+		var pathName = pathElement.innerHTML;
+		pathName = pathName.replace('Index of ', 'Start');
+		pathElement.innerHTML = pathName;
+
+		var fileCount = 0,
+			dirCount = 0,
+			dirStatElem = document.getElementById('dir-stats'),
+			fileStatElem = document.getElementById('file-stats');
+
+		var num_files = 0;
+		var page = document.documentElement.innerHTML.split("\n");
+		for (const line of page) {
+			if (line.startsWith("<a") && !line.endsWith("-")) {
+				num_files++;
+			}
+		}
+
+		var allLinks = document.getElementsByTagName('a');
+		var len_allLinks = allLinks.length;
+		dirs_ended = false;
+		for (let item of allLinks) {
+			// Add mousehover text
+			// EDIT: DON'T add this. Creates additional space on the line for some reason and bugs the line.
+			// Use this only on the new design. There there's no problem.
+			//item.title = decodeURIComponent(item.href);
+
+			if (item.innerHTML != "../") {
+				//if (!item.innerHTML.endsWith('/') && !item.innerHTML.endsWith('..&gt;')) {
+				if (len_allLinks <= num_files) {
+					// After all folders come *hopefully* files with a small name, enough to not show ..> on it,
+					// which will mean we just hit the first file and no more dirs will come because they come first.
+					// EDIT: now it's through the size. If the size is present, it's a file.// EDIT: now it's through the size. If the size is present, it's a file.
+					dirs_ended = true;
+				}
+				if (!dirs_ended){
+					dirCount += 1;
+					item.className = "link-folder";
+				} else {
+					link = item.href.toLowerCase();
+					fileCount += 1;
+					if (link.endsWith('.mp4') || link.endsWith('.avi') || link.endsWith('.mkv') ||
+							link.endsWith('.mov') || link.endsWith('.wmv') || link.endsWith('.flv') ||
+							link.endsWith('.webm')) {
+						item.className = "link-video";
+					} else if (link.endsWith('.zip')) {
+						item.className = "link-zip";
+					} else if (link.endsWith('.png') || link.endsWith('.jpg') || link.endsWith('.jpeg') ||
+							link.endsWith('.webp') || link.endsWith(".gif")) {
+						item.className = "link-image";
+					} else if (link.endsWith('.mp3') || link.endsWith('.wav') ||
+							link.endsWith('.aac') || link.endsWith('.ogg') || link.endsWith('.m4a')) {
+						item.className = "link-audio";
+					} else if (link.endsWith('.txt') || link.endsWith('.log')) {
+						item.className = "link-text";
+					} else if (link.endsWith('.pdf')) {
+						item.className = "link-pdf";
+					} else if (link.endsWith('.doc') || link.endsWith('.docx') || link.endsWith('.rtf')) {
+						item.className = "link-doc";
+					} else if (link.endsWith(".ppt") || link.endsWith(".pptx") || link.endsWith(".pps") || link.endsWith(".ppsx")) {
+						item.className = "link-ppt";
+					} else if (link.endsWith(".xls") || link.endsWith(".xlsx")) {
+						item.className = "link-xls";
+					} else if (link.endsWith(".exe")) {
+						item.className = "link-exe";
+					} else {
+						item.className = "link-file";
+					}
+				}
+			}
+			len_allLinks--;
+		}
+
+		var parentFolderElement = document.querySelector("a[href='../']");
+		parentFolderElement.className = "folderup";
+		parentFolderElement.innerHTML = "&#8682; Back";
+
+		if (dirCount == 1) {
+			dirStatElem.innerHTML = dirCount + " folder";
+		} else {
+			dirStatElem.innerHTML = dirCount + " folders";
+		}
+
+		if (fileCount == 1) {
+			fileStatElem.innerHTML = fileCount + " file";
+		} else {
+			fileStatElem.innerHTML = fileCount + " files";
+		}
+
+
+
+		lines_pre = document.querySelector("pre").innerHTML.split("\n");
+		lines_pre[0] += " | <a class='folderup' href='/'>&#8857; Start</a>";
+		lines_pre[0] += "\n<strong>                         Name                         Date of modification  Size</strong>"
+		lines_pre[0] += "\n<u>Folders:</u>" // Place "Folders:" just above the first folder on the list
+		j = 0;
+		for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
+				line = lines_pre[i];
+				var removed_bar = false;
+
+				// Place "Files:" just above the first file on the list
+				if (j == num_files) {
+					lines_pre[i-1] = "\n<u>Files:</u>\n" + lines_pre[i-1];
+				}
+				line = lines_pre[i];
+
+				// Remove the forward bars from the folders names
+				if (line && line.includes("/</a>")) {
+					lines_pre[i] = line.replace("/</a>", "</a>");
+					removed_bar = true;
+				}
+				line = lines_pre[i];
+
+				// Fixes spacing of lines with non-ASCII characters
+				if (line) {
+					num_chars = line.length;
+					num_bytes = (new TextEncoder().encode(line)).length;
+					num_spaces_add = num_bytes - num_chars;
+					date_index = line.search(/\b\d{2}-[A-Za-z]{3}-\d{4} \d{2}:\d{2}\b/);
+
+					new_line = line.substring(0, date_index);
+					for (let k = 0; k < num_spaces_add; k++) {
+						new_line += "&nbsp";
+					}
+					if (removed_bar) {
+						new_line += "&nbsp";
+					}
+					new_line += line.substring(date_index);
+					lines_pre[i] = new_line;
+				}
+				line = lines_pre[i];
+
+				j++;
+		}
+		document.querySelector("pre").innerHTML = lines_pre.join("\n");
+
+		// Remove the Up and Start links if we're on the root directory
+		//document.querySelector("a[href='../']").innerHTML = "";
+		//document.querySelector("a[href='/']").innerHTML = "";
+	</script>
+
+	<!-- New UI v2 -->
+	<script type="text/javascript">
+		//crash_script;
+		if (getCookie("ui_version") != "v2") {
+			crash_script;
+		}
+
+		// This is built on top of the v1+ page. Don't disable it.
+
+		var download_vid = false;
+
+		var h1 = document.createElement("h3");
+		h1.innerHTML = "<a class='dir_separator' href='/'>Start</a>";
+		var curr_dir_list = document.querySelector("#listing h1").innerHTML.split("/");
+		var prev_dirs = "";
+		for (const dir of curr_dir_list) {
+			if (dir != "" && dir != "Start") {
+				prev_dirs += "/" + encodeURIComponent(dir) + "/";
+				h1.innerHTML += " > <a class='dir_separator' href='" + prev_dirs + "'>" + dir + "</a>";
+			}
+		}
+		document.getElementById("body_div").appendChild(h1);
+
+		var hr = document.createElement("hr");
+		document.getElementById("body_div").appendChild(hr);
+
+		var subtitle = document.createElement("div");
+		subtitle.className = "element";
+		subtitle.innerHTML = "<strong>" + strToHtml("                         Name                          Date of modification   Size") + "</strong>";
+		document.getElementById("body_div").appendChild(subtitle);
+
+		lines_pre = document.querySelector("pre").innerHTML.split("\n");
+		lines_text_pre = document.querySelector("pre").innerText.split("\n");
+		var on_folders = true;
+		for (var i = 1; i < lines_pre.length; i++) {
+			line = lines_pre[i];
+			if (line.includes("href")) {
+				var div = createElement2({name: line.split(">")[1].split("<")[0], folder: on_folders, line: lines_text_pre[i], link: line.split("href=\"")[1].split("\"")[0]});
+				document.getElementById("body_div").appendChild(div);
+			} else if (line.includes("Files:")) {
+				on_folders = false;
+			}
+		}
+
+		function createElement2(element) {
+			var a = document.createElement('a');
+			a.href = element.link;
+			var div = document.createElement('div');
+			a.appendChild(div);
+			div.className = 'element';
+
+			// Add mousehouver text
+			div.title = decodeURIComponent(element.link).replace("/", "");
+
+			var img_src = "/theme/icons/";
+			if (element.folder) {
+				img_src += "folder-1484.png";
+			} else {
+				a.target = "_blank";
+				//a.href = ""; // Let div.onclick handle this in case of a file (open a new tab)
+				var link = element.link;
+				if (link.endsWith("..&gt;")) {
+					img_src += "question-11800.png";
+				} else {
+					if (link.endsWith(".mp4") || link.endsWith(".avi") || link.endsWith(".mkv") ||
+							link.endsWith(".mov") || link.endsWith(".wmv") || link.endsWith(".flv") ||
+							link.endsWith(".webm")) {
+						img_src += "129453.png";
+					} else if (link.endsWith(".zip")) {
+						img_src += "zip-folder-11649.png";
+					} else if (link.endsWith(".png") || link.endsWith(".jpg") || link.endsWith(".jpeg") ||
+							link.endsWith(".webp") || link.endsWith(".gif")) {
+						img_src += "photos-10612.png";
+					} else if (link.endsWith(".mp3") || link.endsWith(".wav") ||
+							link.endsWith(".aac") || link.endsWith(".ogg") || link.endsWith(".m4a")) {
+						img_src += "music-note-10189.png";
+					} else if (link.endsWith(".txt") || link.endsWith(".log")) {
+						img_src += "file-1453.png";
+					} else if (link.endsWith(".pdf")) {
+						img_src += "pdf-2616.png";
+					} else if (link.endsWith(".doc") || link.endsWith(".docx") || link.endsWith(".rtf")) {
+						img_src += "word-67-512.png";
+					} else if (link.endsWith(".ppt") || link.endsWith(".pptx") || link.endsWith(".pps") || link.endsWith(".ppsx")) {
+						img_src += "ppt-46-512.png";
+					} else if (link.endsWith(".xls") || link.endsWith(".xlsx")) {
+						img_src += "excel-512.png";
+					} else if (link.endsWith(".exe")) {
+						img_src += "EXE-icon.png";
+					} else {
+						img_src += "empty-paper-black-outline-19837.png";
+					}
+				}
+			}
+
+			var img = document.createElement('img');
+			img.className = "prevent_select";
+			img.src = img_src;
+			div.appendChild(img);
+
+			div.innerHTML += strToHtml(element.line);
+
+			return a;
+		}
+
+		hr = document.createElement("hr");
+		document.getElementById("body_div").appendChild(hr);
+
+		// Remove the UI v1 design so that only the new one is shown
+		document.querySelector("#listing").innerHTML = "";
+
+	</script>
+
+	<!-- UI v3 -->
+	<script type="text/javascript">
+		//crash_script;
+		if (getCookie("ui_version") && getCookie("ui_version") != "v3") {
+			crash_script;
+		}
+
+		// This is built on top of the v1+ page. Don't disable it.
+
+		var h1 = document.createElement("h3");
+		h1.innerHTML = "<a class='dir_separator' href='/'>Start</a>";
+		var curr_dir_list = document.querySelector("#listing h1").innerHTML.split("/");
+		var prev_dirs = "/";
+		for (const dir of curr_dir_list) {
+			if (dir != "" && dir != "Start") {
+				prev_dirs += encodeURIComponent(dir) + "/";
+				h1.innerHTML += " > <a class='dir_separator' href='" + prev_dirs + "'>" + dir + "</a>";
+			}
+		}
+		document.getElementById("body_div").appendChild(h1);
+
+		var hr = document.createElement("hr");
+		document.getElementById("body_div").appendChild(hr);
+
+		lines_pre = document.querySelector("pre").innerHTML.split("\n");
+		lines_text_pre = document.querySelector("pre").innerText.split("\n");
+		var on_folders = true;
+		for (var i = 1; i < lines_pre.length; i++) {
+			line = lines_pre[i];
+			if (line.includes("href")) {
+				var div = createElement2({folder: on_folders, line: lines_text_pre[i], link: line.split("href=\"")[1].split("\"")[0]});
+				document.getElementById("body_div").appendChild(div);
+			} else if (line.includes("Files:")) {
+				on_folders = false;
+			}
+		}
+
+		function createElement2(element) {
+			var a = document.createElement('a');
+			a.href = element.link;
+			var div = document.createElement('div');
+			a.appendChild(div);
+			div.className = 'element2';
+
+			// Add mousehouver text
+			var date_index = element.line.search(/\b\d{2}-[A-Za-z]{3}-\d{4} \d{2}:\d{2}\b/);
+			var tmp = element.line.substring(date_index + 19, element.line.length).split(" ");
+			div.title = decodeURIComponent(element.link).replace("/", "") + " ||| " +
+						element.line.substring(date_index, date_index + 17) + " ||| " +
+						tmp[tmp.length-1];
+
+			var description = "";
+
+			var img_src = "/theme/icons/";
+			if (element.folder) {
+				img_src += "folder-1484.png";
+			} else {
+				a.target = "_blank"; // To open files always in a new tab
+				var link = element.link;
+				if (link.endsWith(".mp4") || link.endsWith(".avi") || link.endsWith(".mkv") ||
+						link.endsWith(".mov") || link.endsWith(".wmv") || link.endsWith(".flv") ||
+						link.endsWith(".webm")) {
+					img_src += "129453.png";
+					description = "Video file";
+				} else if (link.endsWith(".zip")) {
+					img_src += "zip-folder-11649.png";
+					description = "Compressed file";
+				} else if (link.endsWith(".png") || link.endsWith(".jpg") || link.endsWith(".jpeg") ||
+						link.endsWith(".webp") || link.endsWith(".gif")) {
+					img_src += "photos-10612.png";
+					description = "Image file";
+				} else if (link.endsWith(".mp3") || link.endsWith(".wav") ||
+						link.endsWith(".aac") || link.endsWith(".ogg") || link.endsWith(".m4a")) {
+					img_src += "music-note-10189.png";
+					description = "Audio file";
+				} else if (link.endsWith(".txt") || link.endsWith(".log")) {
+					img_src += "file-1453.png";
+					description = "Text document";
+				} else if (link.endsWith(".pdf")) {
+					img_src += "pdf-2616.png";
+					description = "PDF file";
+				} else if (link.endsWith(".doc") || link.endsWith(".docx") || link.endsWith(".rtf")) {
+					img_src += "word-67-512.png";
+					description = "Word document";
+				} else if (link.endsWith(".ppt") || link.endsWith(".pptx") || link.endsWith(".pps") || link.endsWith(".ppsx")) {
+					img_src += "ppt-46-512.png";
+					description = "PowerPoint presentation";
+				} else if (link.endsWith(".xls") || link.endsWith(".xlsx")) {
+					img_src += "excel-512.png";
+					description = "Excel file";
+				} else if (link.endsWith(".exe")) {
+					img_src += "EXE-icon.png";
+					description = "Windows executable";
+				} else {
+					img_src += "empty-paper-black-outline-19837.png";
+					description = "File";
+				}
+			}
+
+			var img = document.createElement('img');
+			img.className = "prevent_select";
+			img.src = img_src;
+			div.appendChild(img);
+
+			var filename = div.title.split(" ||| ")[0];
+			var max_len = 53;
+			if (filename.length > max_len) {
+				filename = filename.substring(0, max_len) + "...";
+			}
+			div.innerHTML += "<p>" + strToHtml(filename) + "</p>";
+
+			var date_index = element.line.search(/\b\d{2}-[A-Za-z]{3}-\d{4} \d{2}:\d{2}\b/);
+			div.innerHTML += "<p class='prevent_select' style='color: gray;'>" + strToHtml(element.line.substring(date_index, element.line.length)) + "</p>";
+
+			div.innerHTML += "<p class='prevent_select' style='color: gray;'>" + description + "</p>";
+
+			return a;
+		}
+
+		hr = document.createElement("hr");
+		document.getElementById("body_div").appendChild(hr);
+
+		// Remove the v1 design so that only this one is shown
+		document.querySelector("#listing").innerHTML = "";
+
+	</script>
+
+</html>
