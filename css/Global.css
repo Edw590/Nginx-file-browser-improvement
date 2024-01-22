@@ -1,0 +1,18 @@
+/* Global things */
+
+.dir_separator {
+	background-color: rgb(134, 134, 134);
+	padding: 0px 15px;
+	border-radius: 5px;
+}
+.dir_separator:hover {
+	background-color: rgb(221, 221, 221);
+}
+.dir_separator:active {
+	background-color: red;
+}
+.prevent_select {
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none; /* Standard syntax */
+}

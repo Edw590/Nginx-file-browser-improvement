@@ -1,0 +1,33 @@
+/* For UI v3 */
+
+.element2 {
+	margin-bottom: 10px;
+	width: 350px;
+	height: 75px;
+	margin-right: 15px;
+	font-family: "Cascadia Mono", "Segoe UI Mono", "Liberation Mono", Menlo, Monaco, Consolas, monospace;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	overflow: hidden;
+	display: inline-block;
+
+	background-color: lightgrey;
+	border-radius: 10px;
+	border: 5px solid orange;
+	box-shadow: 5px 10px 10px #505050;
+}
+.element2:hover {
+	border-color: blue;
+}
+.element2:active {
+	border-color: red;
+}
+.element2 img {
+	width: 55px;
+	height: 55px;
+	margin: 10px 10px;
+	float: left;
+}
+.element2 p {
+	margin: 6px 5px;
+}

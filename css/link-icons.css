@@ -1,0 +1,42 @@
+a.link-folder:before {
+	content: "\1F4C1\20";
+}
+a.link-file:before {
+	content: "\1F4C4\20";
+}
+
+a.link-text:before {
+	content: "\1F4C3\20";
+}
+
+a.link-video:before {
+	content: "\1F4FC\20";
+}
+a.link-image:before {
+	content: "\1F5BC\20";
+}
+a.link-audio:before {
+	content: "\1F50A\20";
+}
+
+a.link-zip:before {
+	content: "\1F5DC\20\20";
+}
+
+a.link-pdf:before {
+	content: "\1F11F\20";
+}
+
+a.link-doc:before {
+	content: "\24B9\20";
+}
+a.link-ppt:before {
+    content: "\24C5\20";
+}
+a.link-xls:before {
+    content: "\24CD\20";
+}
+
+a.link-exe:before {
+    content: "\24A0\20";
+}
