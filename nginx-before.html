@@ -25,12 +25,12 @@
 				<div id="title">
 					<span class="stats" id='file-stats'></span>
 					<span class="stats" id='dir-stats'></span>
-					<select id="ui_version" title="Choose UI" onchange="javascript:setCookie('ui_version',this.value); window.location.href=''">
+					<select id="ui_version" title="Choose UI" onchange="javascript:setCookie('ui_version',this.value,9999); window.location.href=''">
 						<option value="" selected disabled hidden>Choose UI</option>
 						<option value="v1">UI v1</option>
 						<option value="v1+">UI v1+</option>
 						<option value="v2">UI v2</option>
-						<option value="">UI v3</option>
+						<option value="">UI v3</option><!-- The newest version gets an empty string to not remain stuck in the current newest version if a new one is released. -->
 					</select>
 				</div>
 				<div id='listing'>
