@@ -101,6 +101,7 @@ lines_pre[0] += " | <a class='folderup' href='/'>&#8857; Start</a>";
 lines_pre[0] += "\n<strong>                         Name                         Date of modification  Size</strong>"
 lines_pre[0] += "\n<u>Folders:</u>" // Place "Folders:" just above the first folder on the list
 j = 0;
+var on_files = true;
 for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
 		line = lines_pre[i];
 		var removed_bar = false;
@@ -108,8 +109,20 @@ for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
 		// Place "Files:" just above the first file on the list
 		if (j == num_files) {
 			lines_pre[i-1] = "\n<u>Files:</u>\n" + lines_pre[i-1];
+			on_files = false;
 		}
 		line = lines_pre[i];
+
+		// Adds a "B" to the size and a space before the size letter in case there's one (example, 1.2M -> 1.2 MB)
+		if (on_files) {
+			var line_2 = lines_pre[i-2];
+			var last_char = line_2[line_2.length-1];
+			if (!(last_char >= '0' && last_char <= '9')) {
+				lines_pre[i-2] = lines_pre[i-2].substr(0, line_2.length-1) + " " + last_char + "B";
+			} else {
+				lines_pre[i-2] = lines_pre[i-2] + " B";
+			}
+		}
 
 		// Remove the forward bars from the folders names
 		if (line && line.includes("/</a>")) {
