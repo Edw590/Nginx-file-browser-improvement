@@ -1,0 +1,46 @@
+/* For UI v3.1 */
+
+.element31 {
+	margin-bottom: 10px;
+	width: 350px;
+	height: 75px;
+	margin-right: 15px;
+	font-family: "Cascadia Mono", "Segoe UI Mono", "Liberation Mono", Menlo, Monaco, Consolas, monospace;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	overflow: hidden;
+	display: inline-block;
+
+	background-color: lightgrey;
+	border-radius: 10px;
+	border: 5px solid orange;
+	box-shadow: 5px 10px 10px #505050;
+}
+.element31:hover {
+	border-color: blue;
+}
+.element31:active {
+	border-color: red;
+}
+.element31 img {
+	width: 55px;
+	height: 55px;
+	margin: 10px 10px;
+	float: left;
+}
+.element31 p {
+	margin: 6px 5px;
+}
+
+.folder31 {
+	width: 355px;
+	height: 50px;
+	border-radius: 5px;
+	border: 2px solid orange;
+}
+.folder31 img {
+	width: 35px;
+	height: 35px;
+	margin: 7px 7px;
+	float: left;
+}

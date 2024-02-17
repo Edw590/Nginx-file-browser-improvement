@@ -1,5 +1,7 @@
+// UI v3
+
 //crash_script;
-if (getCookie("ui_version") && getCookie("ui_version") != "v3") {
+if (getCookie("ui_version") != "v3") {
 	crash_script;
 }
 
@@ -52,6 +54,7 @@ function createElement3(element) {
 	var img_src = "/theme/icons/";
 	if (element.folder) {
 		img_src += "folder-1484.png";
+		description = "Files folder";
 	} else {
 		a.target = "_blank"; // To open files always in a new tab
 		var link = element.link;
