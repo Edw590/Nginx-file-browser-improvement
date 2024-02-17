@@ -1,6 +1,6 @@
 /* For UI v2 */
 
-.element {
+.element2 {
 	width: 100%;
 	height: 100%;
 	background-color: #D0D0D0;
@@ -10,10 +10,10 @@
 	white-space: break-spaces;
 	overflow: auto;
 }
-.element:active {
+.element2:active {
 	background-color: #F0F0F0;
 }
-.element img {
+.element2 img {
 	margin-left: 5px;
 	margin-right: 10px;
 	width: 30px;
@@ -28,16 +28,3 @@ a {
 a:hover {
 	text-decoration: underline;
 }
-
-/*
-Coming from <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css">
-*/
-body {font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;}
-button,input,select,textarea{color:#000;background-color:#efefef;font-family:inherit;font-size:inherit;margin-right:6px;margin-bottom:6px;padding:10px;border:none;border-radius:6px;outline:none}
-button,input,textarea{transition:background-color .1s linear,border-color .1s linear,color .1s linear,box-shadow .1s linear,transform .1s ease}
-button,input[type=button],input[type=checkbox],input[type=submit]{cursor:pointer}input:not([type=checkbox]):not([type=radio]),select{display:block}
-button,input[type=button],input[type=submit]{padding-right:30px;padding-left:30px}
-button:hover,input[type=button]:hover,input[type=submit]:hover{background:#ddd}
-button:focus,input:focus,select:focus,textarea:focus{box-shadow:0 0 0 2px rgba(0,150,191,.67)}
-button:active,input[type=button]:active,input[type=checkbox]:active,input[type=radio]:active,input[type=submit]:active{transform:translateY(2px)}
-button:disabled,input:disabled,select:disabled,textarea:disabled{cursor:not-allowed;opacity:.5}

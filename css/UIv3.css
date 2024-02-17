@@ -1,6 +1,6 @@
 /* For UI v3 */
 
-.element2 {
+.element3 {
 	margin-bottom: 10px;
 	width: 350px;
 	height: 75px;
@@ -16,18 +16,18 @@
 	border: 5px solid orange;
 	box-shadow: 5px 10px 10px #505050;
 }
-.element2:hover {
+.element3:hover {
 	border-color: blue;
 }
-.element2:active {
+.element3:active {
 	border-color: red;
 }
-.element2 img {
+.element3 img {
 	width: 55px;
 	height: 55px;
 	margin: 10px 10px;
 	float: left;
 }
-.element2 p {
+.element3 p {
 	margin: 6px 5px;
 }

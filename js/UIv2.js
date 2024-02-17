@@ -23,7 +23,7 @@ var hr = document.createElement("hr");
 document.getElementById("body_div").appendChild(hr);
 
 var subtitle = document.createElement("div");
-subtitle.className = "element";
+subtitle.className = "element2";
 subtitle.innerHTML = "<strong>" + strToHtml("                         Name                          Date of modification   Size") + "</strong>";
 document.getElementById("body_div").appendChild(subtitle);
 
@@ -45,7 +45,7 @@ function createElement2(element) {
 	a.href = element.link;
 	var div = document.createElement('div');
 	a.appendChild(div);
-	div.className = 'element';
+	div.className = 'element2';
 
 	// Add mousehouver text
 	div.title = decodeURIComponent(element.link).replace("/", "");

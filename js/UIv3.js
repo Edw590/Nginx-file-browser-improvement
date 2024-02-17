@@ -26,19 +26,19 @@ var on_folders = true;
 for (var i = 1; i < lines_pre.length; i++) {
 	line = lines_pre[i];
 	if (line.includes("href")) {
-		var div = createElement2({folder: on_folders, line: lines_text_pre[i], link: line.split("href=\"")[1].split("\"")[0]});
+		var div = createElement3({folder: on_folders, line: lines_text_pre[i], link: line.split("href=\"")[1].split("\"")[0]});
 		document.getElementById("body_div").appendChild(div);
 	} else if (line.includes("Files:")) {
 		on_folders = false;
 	}
 }
 
-function createElement2(element) {
+function createElement3(element) {
 	var a = document.createElement('a');
 	a.href = element.link;
 	var div = document.createElement('div');
 	a.appendChild(div);
-	div.className = 'element2';
+	div.className = 'element3';
 
 	// Add mousehouver text
 	var date_index = element.line.search(/\b\d{2}-[A-Za-z]{3}-\d{4} \d{2}:\d{2}\b/);
