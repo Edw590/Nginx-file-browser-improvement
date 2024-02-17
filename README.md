@@ -1,5 +1,5 @@
 # Nginx-file-browser-improvement
-Visual improvement for Nginx on file browser mode
+Visual improvement for Nginx on file browser mode to make it a bit more pretty than the original version.
 
 Order of pictures: UI v1, v1+ (v1 enhanced), v2, v3 and v3.1.
 
