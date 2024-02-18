@@ -58,7 +58,7 @@ function createElement31(element, cls) {
 	var tmp = element.line.substring(date_index + 19, element.line.length).split(" ");
 	div.title = decodeURIComponent(element.link).replace("/", "") + " ||| " +
 				element.line.substring(date_index, date_index + 17) + " ||| " +
-				tmp[tmp.length-1];
+				tmp[tmp.length-2] + " " + tmp[tmp.length-1];
 
 	var description = "";
 
