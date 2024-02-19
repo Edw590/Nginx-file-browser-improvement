@@ -28,9 +28,7 @@ var len_allLinks = allLinks.length;
 dirs_ended = false;
 for (let item of allLinks) {
 	// Add mousehover text
-	// EDIT: DON'T add this. Creates additional space on the line for some reason and bugs the line.
-	// Use this only on the new design. There there's no problem.
-	//item.title = decodeURIComponent(item.href);
+	item.title = decodeURIComponent(item.href);
 
 	if (item.innerHTML != "../") {
 		//if (!item.innerHTML.endsWith('/') && !item.innerHTML.endsWith('..&gt;')) {
@@ -139,7 +137,7 @@ for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
 			date_index = line.search(/\b\d{2}-[A-Za-z]{3}-\d{4} \d{2}:\d{2}\b/);
 
 			new_line = line.substring(0, date_index);
-			for (let k = 0; k < num_spaces_add; k++) {
+			for (let k = 0; k < num_spaces_add/2; k++) {
 				new_line += "&nbsp";
 			}
 			if (removed_bar) {
