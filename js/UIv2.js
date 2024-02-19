@@ -23,7 +23,7 @@ var hr = document.createElement("hr");
 document.getElementById("body_div").appendChild(hr);
 
 var subtitle = document.createElement("div");
-subtitle.innerHTML = "<p style='font-family: \"Cascadia Mono\", \"Segoe UI Mono\", \"Liberation Mono\", Menlo, Monaco, Consolas, monospace;'><strong>" + strToHtml("                        Name                      Modification date    Size") + "</strong></p>";
+subtitle.innerHTML = "<p style='font-family: \"Cascadia Mono\", \"Segoe UI Mono\", \"Liberation Mono\", Menlo, Monaco, Consolas, monospace; background-color: #D0D0D0;'><strong>" + strToHtml("                        Name                      Modification date    Size") + "</strong></p>";
 document.getElementById("body_div").appendChild(subtitle);
 
 lines_pre = document.querySelector("pre").innerHTML.split("\n");
