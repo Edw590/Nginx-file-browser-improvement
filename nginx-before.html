@@ -26,7 +26,7 @@
 				<div id="title">
 					<span class="stats" id='file-stats'></span>
 					<span class="stats" id='dir-stats'></span>
-					<select id="ui_version" title="Choose UI" onchange="javascript:setCookie('ui_version',this.value,9999); window.location.href=''">
+					<select id="ui_version" title="Choose UI" onchange="javascript:setCookie('ui_version',this.value,9999); window.location.href=''" style="display:inline-block;">
 						<option value="" selected disabled hidden>Choose UI</option>
 						<option value="v1">UI v1</option>
 						<option value="v1+">UI v1+</option>
@@ -34,6 +34,7 @@
 						<option value="v3">UI v3</option>
 						<option value="">UI v3.1</option><!-- The newest version gets an empty string to not remain stuck in the current newest version if a new one is released. -->
 					</select>
+					<input type="text" id="search" placeholder="Search here..." onkeyup="search(this.value)" title="Search here" style="display:none;">
 				</div>
 				<div id='listing'>
 					<div>

@@ -39,3 +39,15 @@ function strToHtml(str) {
 
 	return ret;
 }
+
+function search(str) {
+	var elements = document.querySelectorAll(".element2,.element3,.element31");
+	for (var i = 0; i < elements.length; i++) {
+		var element = elements[i];
+		if (element.title.split("|||")[0].toLowerCase().includes(str.toLowerCase())) {
+				element.style.display = "inline-block";
+		} else {
+				element.style.display = "none";
+		}
+	}
+}
