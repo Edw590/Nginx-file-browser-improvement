@@ -24,7 +24,7 @@ document.getElementById("body_div").appendChild(hr);
 
 var subtitle = document.createElement("div");
 subtitle.className = "element2";
-subtitle.innerHTML = "<strong>" + strToHtml("                         Name                          Date of modification   Size") + "</strong>";
+subtitle.innerHTML = "<code><strong>" + strToHtml("                           Name                             Modification date      Size    ") + "</strong></code><br><br>";
 document.getElementById("body_div").appendChild(subtitle);
 
 lines_pre = document.querySelector("pre").innerHTML.split("\n");
