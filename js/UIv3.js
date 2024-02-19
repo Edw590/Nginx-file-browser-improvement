@@ -121,5 +121,5 @@ function createElement3(element) {
 hr = document.createElement("hr");
 document.getElementById("body_div").appendChild(hr);
 
-// Remove the v1 design so that only this one is shown
+// Remove the UI v1 design so that only this one is shown
 document.querySelector("#listing").innerHTML = "";
