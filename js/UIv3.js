@@ -123,3 +123,6 @@ document.getElementById("body_div").appendChild(hr);
 
 // Remove the UI v1 design so that only this one is shown
 document.querySelector("#listing").innerHTML = "";
+
+// Enable the search bar
+document.getElementById("search").style.display = "inline-block";
