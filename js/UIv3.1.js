@@ -7,19 +7,26 @@ if (getCookie("ui_version") && getCookie("ui_version") != "v3.1") {
 
 // This is built on top of the v1+ page. Don't disable it.
 
-var h1 = document.createElement("h3");
-h1.innerHTML = "<a class='dir_separator' href='/'>Start</a>";
+var path_h3 = document.createElement("h3");
+path_h3.innerHTML = "<a class='dir_separator' href='/'>Start</a>";
 var curr_dir_list = document.querySelector("#listing h1").innerHTML.split("/");
 var prev_dirs = "/";
 for (const dir of curr_dir_list) {
 	if (dir != "" && dir != "Start") {
 		prev_dirs += encodeURIComponent(dir) + "/";
-		h1.innerHTML += " > <a class='dir_separator' href='" + prev_dirs + "'>" + dir + "</a>";
+		path_h3.innerHTML += " > <a class='dir_separator' href='" + prev_dirs + "'>" + dir + "</a>";
 	}
 }
-document.getElementById("body_div").appendChild(h1);
+document.getElementById("body_div").appendChild(path_h3);
 
 var hr = document.createElement("hr");
+document.getElementById("body_div").appendChild(hr);
+
+var new_listing_div = document.createElement("div");
+new_listing_div.id = "new_listing";
+document.getElementById("body_div").appendChild(new_listing_div);
+
+hr = document.createElement("hr");
 document.getElementById("body_div").appendChild(hr);
 
 lines_pre = document.querySelector("pre").innerHTML.split("\n");
@@ -27,22 +34,23 @@ lines_text_pre = document.querySelector("pre").innerText.split("\n");
 var on_folders = true;
 var to_add = document.createElement("h3");
 to_add.innerHTML = "<u>Folders</u>"
-document.getElementById("body_div").appendChild(to_add);
+document.getElementById("new_listing").appendChild(to_add);
 for (var i = 1; i < lines_pre.length; i++) {
 	line = lines_pre[i];
 	if (line.includes("href")) {
 		if (on_folders) {
 			to_add = createElement31({folder: on_folders, line: lines_text_pre[i], link: line.split("href=\"")[1].split("\"")[0]}, "element31 folder31");
+			document.getElementById("new_listing").appendChild(to_add);
 		} else {
 			to_add = createElement31({folder: on_folders, line: lines_text_pre[i], link: line.split("href=\"")[1].split("\"")[0]}, "element31");
+			document.getElementById("new_listing").appendChild(to_add);
 		}
-		document.getElementById("body_div").appendChild(to_add);
 	} else if (line.includes("Files:")) {
 		on_folders = false;
 
 		var to_add = document.createElement("h3");
 		to_add.innerHTML = "<u>Files</u>"
-		document.getElementById("body_div").appendChild(to_add);
+		document.getElementById("new_listing").appendChild(to_add);
 	}
 }
 
@@ -51,12 +59,12 @@ function createElement31(element, cls) {
 	a.href = element.link;
 	var div = document.createElement('div');
 	a.appendChild(div);
-	div.className = cls;
+	a.className = cls;
 
 	// Add mousehouver text
 	var date_index = element.line.search(/\b\d{2}-[A-Za-z]{3}-\d{4} \d{2}:\d{2}\b/);
 	var tmp = element.line.substring(date_index + 19, element.line.length).split(" ");
-	div.title = decodeURIComponent(element.link).replace("/", "") + " ||| " +
+	a.title = decodeURIComponent(element.link).replace("/", "") + " ||| " +
 				element.line.substring(date_index, date_index + 17) + " ||| " +
 				tmp[tmp.length-2] + " " + tmp[tmp.length-1];
 
@@ -114,7 +122,7 @@ function createElement31(element, cls) {
 	img.src = img_src;
 	div.appendChild(img);
 
-	var filename = div.title.split(" ||| ")[0];
+	var filename = a.title.split(" ||| ")[0];
 	var max_len = 50;
 	if (filename.length > max_len) {
 		filename = filename.substring(0, max_len) + "...";
@@ -122,7 +130,6 @@ function createElement31(element, cls) {
 	div.innerHTML += "<p>" + strToHtml(filename) + "</p>";
 
 	if (cls == "element31") {
-		var date_index = element.line.search(/\b\d{2}-[A-Za-z]{3}-\d{4} \d{2}:\d{2}\b/);
 		div.innerHTML += "<p class='prevent_select' style='color: gray;'>" + strToHtml(element.line.substring(date_index, element.line.length)) + "</p>";
 
 		div.innerHTML += "<p class='prevent_select' style='color: gray;'>" + description + "</p>";
@@ -131,11 +138,11 @@ function createElement31(element, cls) {
 	return a;
 }
 
-hr = document.createElement("hr");
-document.getElementById("body_div").appendChild(hr);
-
 // Remove the UI v1 design so that only this one is shown
 document.querySelector("#listing").innerHTML = "";
 
 // Enable the search bar
 document.getElementById("search").style.display = "inline-block";
+
+// Enable the order by dropdown
+document.getElementById("order_by").style.display = "inline-block";

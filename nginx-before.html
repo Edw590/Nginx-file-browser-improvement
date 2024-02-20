@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="/theme/css/style.css">
 		<link rel="stylesheet" href="/theme/css/styles_mine.css">
 
-		<link rel="stylesheet" href="/theme/css/Global.css">
+		<link rel="stylesheet" href="/theme/css/General.css">
 
 		<link rel="stylesheet" href="/theme/css/UIv2.css">
 		<link rel="stylesheet" href="/theme/css/UIv3.css">
@@ -33,6 +33,14 @@
 						<option value="v2">UI v2</option>
 						<option value="v3">UI v3</option>
 						<option value="">UI v3.1</option><!-- The newest version gets an empty string to not remain stuck in the current newest version if a new one is released. -->
+					</select>
+					<select id="order_by" title="Order by" onchange="javascript:sortBy(this.value)" style="display: none;">
+							<option value="" selected disabled hidden>Order by...</option>
+							<option value="name">Name</option>
+							<option value="date+">Date+</option>
+							<option value="date-">Date-</option>
+							<option value="size+">Size+</option>
+							<option value="size-">Size-</option>
 					</select>
 					<input type="text" id="search" placeholder="Search here..." onkeyup="search(this.value)" title="Search here" style="display:none;">
 				</div>

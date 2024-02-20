@@ -1,3 +1,5 @@
+// Page enhancements for UI v1 (UI v1+)
+
 //crash_script;
 if (getCookie("ui_version") == "v1") { // This code needs to load always, except if UI v1 is to be used
 	crash_script;
@@ -151,7 +153,3 @@ for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
 		j++;
 }
 document.querySelector("pre").innerHTML = lines_pre.join("\n");
-
-// Remove the Up and Start links if we're on the root directory
-//document.querySelector("a[href='../']").innerHTML = "";
-//document.querySelector("a[href='/']").innerHTML = "";

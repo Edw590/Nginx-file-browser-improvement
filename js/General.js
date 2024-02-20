@@ -45,9 +45,9 @@ function search(str) {
 	for (var i = 0; i < elements.length; i++) {
 		var element = elements[i];
 		if (element.title.split("|||")[0].toLowerCase().includes(str.toLowerCase())) {
-				element.style.display = "inline-block";
+			element.style.display = "inline-block";
 		} else {
-				element.style.display = "none";
+			element.style.display = "none";
 		}
 	}
 }

@@ -7,17 +7,17 @@ if (getCookie("ui_version") != "v2") {
 
 // This is built on top of the v1+ page. Don't disable it.
 
-var h1 = document.createElement("h3");
-h1.innerHTML = "<a class='dir_separator' href='/'>Start</a>";
+var path_h3 = document.createElement("h3");
+path_h3.innerHTML = "<a class='dir_separator' href='/'>Start</a>";
 var curr_dir_list = document.querySelector("#listing h1").innerHTML.split("/");
 var prev_dirs = "/";
 for (const dir of curr_dir_list) {
 	if (dir != "" && dir != "Start") {
 		prev_dirs += encodeURIComponent(dir) + "/";
-		h1.innerHTML += " > <a class='dir_separator' href='" + prev_dirs + "'>" + dir + "</a>";
+		path_h3.innerHTML += " > <a class='dir_separator' href='" + prev_dirs + "'>" + dir + "</a>";
 	}
 }
-document.getElementById("body_div").appendChild(h1);
+document.getElementById("body_div").appendChild(path_h3);
 
 var hr = document.createElement("hr");
 document.getElementById("body_div").appendChild(hr);
@@ -26,28 +26,45 @@ var subtitle = document.createElement("div");
 subtitle.innerHTML = "<p style='font-family: \"Cascadia Mono\", \"Segoe UI Mono\", \"Liberation Mono\", Menlo, Monaco, Consolas, monospace; background-color: #D0D0D0;'><strong>" + strToHtml("                        Name                      Modification date    Size") + "</strong></p>";
 document.getElementById("body_div").appendChild(subtitle);
 
+var new_listing_div = document.createElement("div");
+new_listing_div.id = "new_listing";
+document.getElementById("body_div").appendChild(new_listing_div);
+
+hr = document.createElement("hr");
+document.getElementById("body_div").appendChild(hr);
+
 lines_pre = document.querySelector("pre").innerHTML.split("\n");
 lines_text_pre = document.querySelector("pre").innerText.split("\n");
 var on_folders = true;
 for (var i = 1; i < lines_pre.length; i++) {
 	line = lines_pre[i];
 	if (line.includes("href")) {
-		var div = createElement2({name: line.split(">")[1].split("<")[0], folder: on_folders, line: lines_text_pre[i], link: line.split("href=\"")[1].split("\"")[0]});
-		document.getElementById("body_div").appendChild(div);
+		if (on_folders) {
+			var to_add = createElement2({name: line.split(">")[1].split("<")[0], folder: on_folders, line: lines_text_pre[i], link: line.split("href=\"")[1].split("\"")[0]}, "element2 folder2");
+			document.getElementById("new_listing").appendChild(to_add);
+		} else {
+			var to_add = createElement2({name: line.split(">")[1].split("<")[0], folder: on_folders, line: lines_text_pre[i], link: line.split("href=\"")[1].split("\"")[0]}, "element2");
+			document.getElementById("new_listing").appendChild(to_add);
+		}
 	} else if (line.includes("Files:")) {
 		on_folders = false;
 	}
 }
 
-function createElement2(element) {
+function createElement2(element, cls) {
 	var a = document.createElement('a');
 	a.href = element.link;
 	var div = document.createElement('div');
 	a.appendChild(div);
-	div.className = 'element2';
+	a.className = cls;
+	div.className = a.className;
 
 	// Add mousehouver text
-	div.title = decodeURIComponent(element.link).replace("/", "");
+	var date_index = element.line.search(/\b\d{2}-[A-Za-z]{3}-\d{4} \d{2}:\d{2}\b/);
+	var tmp = element.line.substring(date_index + 19, element.line.length).split(" ");
+	a.title = decodeURIComponent(element.link).replace("/", "") + " ||| " +
+				element.line.substring(date_index, date_index + 17) + " ||| " +
+				tmp[tmp.length-2] + " " + tmp[tmp.length-1];
 
 	var img_src = "/theme/icons/";
 	if (element.folder) {
@@ -94,11 +111,11 @@ function createElement2(element) {
 	return a;
 }
 
-hr = document.createElement("hr");
-document.getElementById("body_div").appendChild(hr);
-
 // Remove the UI v1 design so that only this one is shown
 document.querySelector("#listing").innerHTML = "";
 
 // Enable the search bar
 document.getElementById("search").style.display = "inline-block";
+
+// Enable the order by dropdown
+document.getElementById("order_by").style.display = "inline-block";
