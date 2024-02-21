@@ -106,15 +106,18 @@ for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
 		line = lines_pre[i];
 		var removed_bar = false;
 
+		if (j - 2 == num_files) { // Why -2? Because it worked xD
+			on_files = false;
+		}
+
 		// Place "Files:" just above the first file on the list
 		if (j == num_files) {
 			lines_pre[i-1] = "\n<u>Files:</u>\n" + lines_pre[i-1];
-			on_files = false;
 		}
 		line = lines_pre[i];
 
 		// Adds a "B" to the size and a space before the size letter in case there's one (example, 1.2M -> 1.2 MB)
-		if (on_files) {
+		if (on_files && lines_pre[i]) { // The 2nd check is to check if the line is not undefined
 			var line_2 = lines_pre[i-2];
 			var last_char = line_2[line_2.length-1];
 			if (!(last_char >= '0' && last_char <= '9')) {
@@ -122,6 +125,11 @@ for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
 			} else {
 				lines_pre[i-2] = lines_pre[i-2] + " B";
 			}
+		}
+
+		// Add target="_blank" to the file links to open them in a new tab
+		if (on_files && lines_pre[i]) {
+			lines_pre[i] = lines_pre[i].replace("<a", "<a target=\"_blank\"");
 		}
 
 		// Remove the forward bars from the folders names
