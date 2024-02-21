@@ -18,6 +18,7 @@
 }
 .element31:hover {
 	border-color: blue;
+	text-decoration: none;
 }
 .element31:active {
 	border-color: red;

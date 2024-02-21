@@ -18,6 +18,7 @@
 }
 .element3:hover {
 	border-color: blue;
+	text-decoration: none;
 }
 .element3:active {
 	border-color: red;
