@@ -19,12 +19,3 @@
 	width: 30px;
 	height: 30px;
 }
-
-a {
-	text-decoration: none;
-	color: #0076d1;
-	color: black;
-}
-a:hover {
-	text-decoration: underline;
-}

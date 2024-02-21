@@ -17,6 +17,14 @@
 	user-select: none; /* Standard syntax */
 }
 
+a {
+	text-decoration: none;
+	color: black;
+}
+a:hover {
+	text-decoration: underline;
+}
+
 /*
 Coming from <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css">
 */
