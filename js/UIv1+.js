@@ -30,7 +30,12 @@ var len_allLinks = allLinks.length;
 dirs_ended = false;
 for (let item of allLinks) {
 	// Add mousehover text
-	item.title = decodeURIComponent(item.href);
+	var href = decodeURIComponent(item.href);
+	if (href.endsWith('/')) {
+		href = href.slice(0, -1);
+	}
+	var href_split = href.split('/');
+	item.title = href_split[href_split.length-1];
 
 	if (item.innerHTML != "../") {
 		//if (!item.innerHTML.endsWith('/') && !item.innerHTML.endsWith('..&gt;')) {
