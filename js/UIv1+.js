@@ -103,13 +103,12 @@ if (fileCount == 1) {
 
 lines_pre = document.querySelector("pre").innerHTML.split("\n");
 lines_pre[0] += " | <a class='folderup' href='/'>&#8857; Start</a>";
-lines_pre[0] += "\n<strong>                         Name                         Date of modification  Size</strong>"
-lines_pre[0] += "\n<u>Folders:</u>" // Place "Folders:" just above the first folder on the list
+lines_pre.splice(1, 0, "<strong>                         Name                         Date of modification  Size</strong>");
+lines_pre.splice(2, 0, "<u>Folders:</u>"); // Place "Folders:" just above the first folder on the list
 j = 0;
 var on_files = true;
 for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
 		line = lines_pre[i];
-		var removed_bar = false;
 
 		if (j - 2 == num_files) { // Why -2? Because it worked xD
 			on_files = false;
@@ -117,7 +116,9 @@ for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
 
 		// Place "Files:" just above the first file on the list
 		if (j == num_files) {
-			lines_pre[i-1] = "\n<u>Files:</u>\n" + lines_pre[i-1];
+			lines_pre.splice(i - 1, 0, "");
+			lines_pre.splice(i, 0, "<u>Files:</u>");
+			i += 2;
 		}
 		line = lines_pre[i];
 
@@ -134,29 +135,26 @@ for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
 
 		// Add target="_blank" to the file links to open them in a new tab
 		if (on_files && lines_pre[i]) {
-			lines_pre[i] = lines_pre[i].replace("<a", "<a target=\"_blank\"");
+			lines_pre[i] = lines_pre[i].replace("<a ", "<a target=\"_blank\" ");
 		}
 
 		// Remove the forward bars from the folders names
 		if (line && line.includes("/</a>")) {
-			lines_pre[i] = line.replace("/</a>", "</a>");
-			removed_bar = true;
+			lines_pre[i] = line.replace("/</a>", " </a>");
 		}
 		line = lines_pre[i];
 
 		// Fixes spacing of lines with non-ASCII characters
 		if (line) {
-			num_chars = line.length;
-			num_bytes = (new TextEncoder().encode(line)).length;
+			var a_text = line.split(">")[1].split("<")[0];
+			num_chars = a_text.length;
+			num_bytes = (new TextEncoder().encode(a_text)).length;
 			num_spaces_add = num_bytes - num_chars;
-			date_index = line.search(/\b\d{2}-[A-Za-z]{3}-\d{4} \d{2}:\d{2}\b/);
 
+			date_index = line.search(/\b\d{2}-[A-Za-z]{3}-\d{4} \d{2}:\d{2}\b/);
 			new_line = line.substring(0, date_index);
 			for (let k = 0; k < num_spaces_add/2; k++) {
-				new_line += "&nbsp";
-			}
-			if (removed_bar) {
-				new_line += "&nbsp";
+				new_line += " ";
 			}
 			new_line += line.substring(date_index);
 			lines_pre[i] = new_line;
