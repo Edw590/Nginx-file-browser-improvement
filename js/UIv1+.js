@@ -103,7 +103,7 @@ if (fileCount == 1) {
 
 lines_pre = document.querySelector("pre").innerHTML.split("\n");
 lines_pre[0] += " | <a class='folderup' href='/'>&#8857; Start</a>";
-lines_pre.splice(1, 0, "<strong>                         Name                         Date of modification  Size</strong>");
+lines_pre.splice(1, 0, "<strong>                        Name                        Date of modification  Size</strong>");
 lines_pre.splice(2, 0, "<u>Folders:</u>"); // Place "Folders:" just above the first folder on the list
 j = 0;
 var on_files = true;
