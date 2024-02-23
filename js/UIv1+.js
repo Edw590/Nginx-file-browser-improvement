@@ -108,7 +108,6 @@ lines_pre.splice(2, 0, "<u>Folders:</u>"); // Place "Folders:" just above the fi
 j = 0;
 var on_files = true;
 for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
-		line = lines_pre[i];
 
 		if (j - 2 == num_files) { // Why -2? Because it worked xD
 			on_files = false;
@@ -120,7 +119,6 @@ for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
 			lines_pre.splice(i, 0, "<u>Files:</u>");
 			i += 2;
 		}
-		line = lines_pre[i];
 
 		// Adds a "B" to the size and a space before the size letter in case there's one (example, 1.2M -> 1.2 MB)
 		if (on_files && lines_pre[i]) { // The 2nd check is to check if the line is not undefined
@@ -139,27 +137,31 @@ for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
 		}
 
 		// Remove the forward bars from the folders names
-		if (line && line.includes("/</a>")) {
-			lines_pre[i] = line.replace("/</a>", " </a>");
+		if (lines_pre[i] && lines_pre[i].includes("/</a>")) {
+			lines_pre[i] = lines_pre[i].replace("/</a>", " </a>");
 		}
-		line = lines_pre[i];
+
+		// Underline the whole line
+		if (lines_pre[i] && lines_pre[i].includes("</a>")) {
+			lines_pre[i] = lines_pre[i].replace("</a>", "");
+			lines_pre[i] += "</a>";
+		}
 
 		// Fixes spacing of lines with non-ASCII characters
-		if (line) {
-			var a_text = line.split(">")[1].split("<")[0];
+		if (lines_pre[i]) {
+			var a_text = lines_pre[i].split(">")[1].split("<")[0];
 			num_chars = a_text.length;
 			num_bytes = (new TextEncoder().encode(a_text)).length;
 			num_spaces_add = num_bytes - num_chars;
 
-			date_index = line.search(/\b\d{2}-[A-Za-z]{3}-\d{4} \d{2}:\d{2}\b/);
-			new_line = line.substring(0, date_index);
+			date_index = lines_pre[i].search(/\b\d{2}-[A-Za-z]{3}-\d{4} \d{2}:\d{2}\b/);
+			new_line = lines_pre[i].substring(0, date_index);
 			for (let k = 0; k < num_spaces_add/2; k++) {
 				new_line += " ";
 			}
-			new_line += line.substring(date_index);
+			new_line += lines_pre[i].substring(date_index);
 			lines_pre[i] = new_line;
 		}
-		line = lines_pre[i];
 
 		j++;
 }
