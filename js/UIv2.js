@@ -9,7 +9,7 @@ if (getCookie("ui_version") != "v2") {
 
 var path_h3 = document.createElement("h3");
 path_h3.innerHTML = "<a class='dir_separator' href='/'>Start</a>";
-var curr_dir_list = document.querySelector("#listing h1").innerHTML.split("/");
+var curr_dir_list = document.querySelector("#listing h1").innerText.split(" |>| ");
 var prev_dirs = "/";
 for (const dir of curr_dir_list) {
 	if (dir != "" && dir != "Start") {
