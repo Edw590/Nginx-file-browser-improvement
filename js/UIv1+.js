@@ -10,6 +10,10 @@ pathElement.className = 'listing';
 
 var pathName = pathElement.innerHTML;
 pathName = pathName.replace('Index of ', 'Start');
+if (pathName.endsWith('/')) {
+	pathName = pathName.slice(0, -1);
+}
+pathName = pathName.replaceAll("/", " |>| ");
 pathElement.innerHTML = pathName;
 
 var fileCount = 0,
@@ -108,7 +112,6 @@ lines_pre.splice(2, 0, "<u>Folders:</u>"); // Place "Folders:" just above the fi
 j = 0;
 var on_files = true;
 for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
-
 		if (j - 2 == num_files) { // Why -2? Because it worked xD
 			on_files = false;
 		}
