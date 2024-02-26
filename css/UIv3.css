@@ -8,6 +8,7 @@
 	font-family: "Cascadia Mono", "Segoe UI Mono", "Liberation Mono", Menlo, Monaco, Consolas, monospace;
 	overflow-wrap: break-word;
 	word-wrap: break-word;
+	word-break: break-all;
 	overflow: hidden;
 	display: inline-block;
 
