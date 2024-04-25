@@ -1,5 +1,5 @@
 # Nginx-file-browser-improvement
-Visual improvement for Nginx on file browser mode to make it a bit more pretty than the original version.
+Visual improvement for Nginx on file browser or autoindex mode to make it a bit prettier than the original version.
 
 To use, on the Nginx server configuration, set `add_before_body` and `add_after_body` to the before and after HTMLs.
 
