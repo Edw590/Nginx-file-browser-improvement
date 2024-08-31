@@ -175,7 +175,7 @@ function createElement4(element, cls) {
 		more_info.style.top = mouseEvent.pageY + 15 + 'px';
 		more_info.style.left = mouseEvent.pageX + 15 + 'px';
 
-		more_info.innerHTML = "<a target=\"_blank\" href=\"" + element.link + "?preview=1\">Preview seconds of the video</a>";
+		more_info.innerHTML = "<a target=\"_blank\" href=\"" + element.link + "?preview=1\">Preview video</a>";
 	});
 
 	return a;
