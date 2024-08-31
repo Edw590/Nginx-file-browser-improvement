@@ -4,10 +4,9 @@
 		<title>Some title</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-		<!--link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css"-->
-
 		<link rel="stylesheet" href="/theme/css/link-icons.css">
 		<link rel="stylesheet" href="/theme/css/style.css">
+
 		<link rel="stylesheet" href="/theme/css/styles_mine.css">
 
 		<link rel="stylesheet" href="/theme/css/General.css">
@@ -32,7 +31,8 @@
 						<option value="v1+">UI v1+</option>
 						<option value="v2">UI v2</option>
 						<option value="v3">UI v3</option>
-						<option value="">UI v3.1</option><!-- The newest version gets an empty string to not remain stuck in the current newest version if a new one is released. -->
+						<option value="">UI v3.1</option>
+						<!-- The newest version gets an empty string to not remain stuck in the current newest version if a new one is released. -->
 					</select>
 					<select id="order_by" title="Order by" onchange="javascript:sortBy(this.value)" style="display: none;">
 							<option value="" selected disabled hidden>Order by...</option>
@@ -43,6 +43,7 @@
 							<option value="size-">Size-</option>
 					</select>
 					<input type="text" id="search" placeholder="Search here..." onkeyup="search(this.value)" title="Search here" style="display:none;">
+					<button id="downloadAll" onclick="downloadAll()" title="X is defined by the browser" style="display: none;" type="button">Download all files here, X at a time (enable pop-ups to work)</button>
 				</div>
 				<div id='listing'>
 					<div>

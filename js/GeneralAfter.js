@@ -1,10 +1,25 @@
-// Order By things
-
 var elements = document.querySelectorAll("a.element2,.element3,.element31");
 var elements_arr = [];
 for (var i = 0; i < elements.length; i++) {
 	elements_arr.push(elements[i]);
 }
+
+// Download all files in a folder
+
+function downloadAll() {
+	var any_downloaded = false;
+	for (var i = 0; i < elements_arr.length; i++) {
+		if (!elements_arr[i].href.endsWith("/")) {
+			elements_arr[i].click();
+			any_downloaded = true
+		}
+	}
+	if (!any_downloaded) {
+		alert("No files to download");
+	}
+}
+
+// Order By things
 
 function sortBy(what) {
 	switch (what) {
@@ -33,8 +48,20 @@ function sortByDate(direction) {
 	document.getElementById("new_listing").innerHTML = ""; // Remove "Folders" and "Files" from the listing
 	var elements_arr_copy = elements_arr.slice();
 	elements_arr_copy.sort(function(a, b) {
-		var date_a = new Date(a.title.split("|||")[1]);
-		var date_b = new Date(b.title.split("|||")[1]);
+
+		// dataMine is a custom attribute on UI v4
+		var date_a;
+		if (a.title.includes("|||")) {
+			date_a = new Date(a.title.split("|||")[1]);
+		} else {
+			date_a = new Date(a.dataMine.split("|||")[1]);
+		}
+		var date_b;
+		if (b.title.includes("|||")) {
+			date_b = new Date(b.title.split("|||")[1]);
+		} else {
+			date_b = new Date(b.dataMine.split("|||")[1]);
+		}
 		if (direction == "+") {
 			return date_a - date_b;
 		} else {
@@ -51,8 +78,20 @@ function sortBySize(direction) {
 	document.getElementById("new_listing").innerHTML = ""; // Remove "Folders" and "Files" from the listing
 	var elements_arr_copy = elements_arr.slice();
 	elements_arr_copy.sort(function(a, b) {
-		var size_a = a.title.split("|||")[2].split(" ");
-		var size_b = b.title.split("|||")[2].split(" ");
+
+		// dataMine is a custom attribute on UI v4
+		var size_a = "";
+		if (a.title.includes("|||")) {
+			size_a = a.title.split("|||")[2].split(" ");
+		} else {
+			size_a = a.dataMine.split("|||")[2].split(" ");
+		}
+		var size_b = "";
+		if (b.title.includes("|||")) {
+			size_b = b.title.split("|||")[2].split(" ");
+		} else {
+			size_b = b.dataMine.split("|||")[2].split(" ");
+		}
 		var size_a_len = size_a.length;
 		var size_b_len = size_b.length;
 		var size_a_num = parseFloat(size_a[size_a_len-2]);
