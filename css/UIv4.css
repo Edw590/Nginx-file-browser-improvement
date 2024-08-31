@@ -1,0 +1,120 @@
+/* For UI v4 */
+
+.element4 {
+	margin-bottom: 10px;
+	width: 350px;
+	height: 75px;
+	margin-right: 15px;
+	font-family: "Cascadia Mono", "Segoe UI Mono", "Liberation Mono", Menlo, Monaco, Consolas, monospace;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-all;
+	overflow: hidden;
+	display: inline-block;
+
+	background-color: lightgrey;
+	border-radius: 10px;
+	border: 5px solid orange;
+	box-shadow: 5px 10px 10px #505050;
+
+	transition: border-color .15s linear, height .15s linear;
+}
+.element4:hover {
+	border-color: blue;
+	text-decoration: none;
+	height: 100px;
+}
+.element4:active {
+	border-color: red;
+}
+.element4 img {
+	width: 55px;
+	height: 55px;
+	margin: 5px 5px;
+	margin-bottom: 20px;
+	float: left;
+}
+.element4 p {
+	margin: 6px 5px;
+}
+
+.folder4 {
+	width: 355px;
+	height: 50px;
+	border-radius: 5px;
+	border: 2px solid orange;
+}
+.folder4 img {
+	width: 35px;
+	height: 35px;
+	margin: 2px 7px;
+	float: left;
+}
+.folder4:hover {
+	height: 50px;
+}
+
+.dir_separator4 {
+	background-color: rgb(143, 143, 143);
+	padding: 0px 15px;
+	border-radius: 5px;
+}
+.dir_separator4:hover {
+	background-color: rgb(221, 221, 221);
+}
+.dir_separator4:active {
+	background-color: red;
+}
+
+#path_h3_4 {
+	line-height: 1.5;
+}
+
+#more_info4 {
+	padding: 10px;
+	background: white;
+	position: absolute;
+}
+
+@media (pointer:none), (pointer:coarse) and (max-aspect-ratio: 13/9) {
+	.element4 {
+		font-size: 29px;
+		text-align: center;
+		width: 350px;
+		height: 205px;
+		border: 8px solid orange;
+		border-radius: 10px;
+	}
+	.element4:hover {
+		height: 275px;
+	}
+	.element4 img {
+		width: 80px;
+		height: 80px;
+		margin: 5px 130px;
+	}
+
+	.folder4:hover {
+		height: 205px;
+	}
+
+	.dir_separator4 {
+		padding: 15px 15px;
+	}
+
+	.normal_text4 {
+		font-size: 35px;
+	}
+
+	/*--------------------------------------*/
+
+	#path_h3_4 {
+		line-height: 2.5;
+		font-size: 35px;
+	}
+
+	#more_info4 {
+		padding: 20px;
+		font-size: 35px;
+	}
+}
