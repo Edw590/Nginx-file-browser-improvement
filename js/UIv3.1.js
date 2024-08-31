@@ -1,7 +1,7 @@
 // UI v3.1
 
 //crash_script;
-if (getCookie("ui_version")) {
+if (getCookie("ui_version") != "v3.1") {
 	crash_script;
 }
 
