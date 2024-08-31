@@ -19,6 +19,11 @@ for (const dir of curr_dir_list) {
 }
 document.getElementById("body_div").appendChild(path_h3);
 
+var more_info = document.createElement("div");
+more_info.id = "more_info31";
+more_info.style.display = "none";
+document.getElementById("body_div").appendChild(more_info);
+
 var hr = document.createElement("hr");
 document.getElementById("body_div").appendChild(hr);
 
@@ -39,11 +44,18 @@ for (var i = 1; i < lines_pre.length; i++) {
 	line = lines_pre[i];
 	if (line.includes("href")) {
 		if (on_folders) {
-			to_add = createElement31({folder: on_folders, line: lines_text_pre[i], link: line.split("href=\"")[1].split("\"")[0]}, "element31 folder31");
+			to_add = createElement31({
+				folder: on_folders,
+				line: lines_text_pre[i],
+				link: line.split("href=\"")[1].split("\"")[0]
+			}, "element31 folder31");
 			document.getElementById("new_listing").appendChild(to_add);
 		} else {
-			to_add = createElement31({folder: on_folders, line: lines_text_pre[i], link: line.split("href=\"")[1].split("\"")[0]}, "element31");
-			document.getElementById("new_listing").appendChild(to_add);
+			to_add = createElement31({
+				folder: on_folders,
+				line: lines_text_pre[i],
+				link: line.split("href=\"")[1].split("\"")[0]
+			}, "element31");
 		}
 	} else if (line.includes("Files:")) {
 		on_folders = false;
@@ -76,7 +88,7 @@ function createElement31(element, cls) {
 		description = "Files folder";
 	} else {
 		a.target = "_blank"; // To open files always in a new tab
-		var link = element.link;
+		var link = element.link.toLowerCase();
 		if (link.endsWith(".mp4") || link.endsWith(".avi") || link.endsWith(".mkv") ||
 				link.endsWith(".mov") || link.endsWith(".wmv") || link.endsWith(".flv") ||
 				link.endsWith(".webm")) {
@@ -98,7 +110,7 @@ function createElement31(element, cls) {
 			description = "Text document";
 		} else if (link.endsWith(".pdf")) {
 			img_src += "pdf-2616.png";
-			description = "PDF file";
+			description = "Adobe Acrobat document";
 		} else if (link.endsWith(".doc") || link.endsWith(".docx") || link.endsWith(".rtf")) {
 			img_src += "word-67-512.png";
 			description = "Word document";
@@ -107,7 +119,7 @@ function createElement31(element, cls) {
 			description = "PowerPoint presentation";
 		} else if (link.endsWith(".xls") || link.endsWith(".xlsx")) {
 			img_src += "excel-512.png";
-			description = "Excel file";
+			description = "Excel spreadsheet";
 		} else if (link.endsWith(".exe")) {
 			img_src += "EXE-icon.png";
 			description = "Windows executable";
@@ -134,6 +146,20 @@ function createElement31(element, cls) {
 
 		div.innerHTML += "<p class='prevent_select' style='color: gray;'>" + description + "</p>";
 	}
+
+	div.addEventListener("mouseover", function(mouseEvent) {
+		if (element.folder || !element.link.toLowerCase().endsWith(".mp4")) {
+			more_info.style.display = 'none';
+
+			return
+		}
+
+		more_info.style.display = 'inline-block';
+		more_info.style.top = mouseEvent.pageY + 15 + 'px';
+		more_info.style.left = mouseEvent.pageX + 15 + 'px';
+
+		more_info.innerHTML = "<a target=\"_blank\" href=\"" + element.link + "?preview=1\">Preview video</a>";
+	});
 
 	return a;
 }

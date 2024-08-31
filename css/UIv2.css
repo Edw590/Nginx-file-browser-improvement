@@ -19,3 +19,9 @@
 	width: 30px;
 	height: 30px;
 }
+
+#more_info2 {
+	padding: 10px;
+	background: white;
+	position: absolute;
+}

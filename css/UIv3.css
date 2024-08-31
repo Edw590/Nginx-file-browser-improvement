@@ -33,3 +33,9 @@
 .element3 p {
 	margin: 6px 5px;
 }
+
+#more_info3 {
+	padding: 10px;
+	background: white;
+	position: absolute;
+}

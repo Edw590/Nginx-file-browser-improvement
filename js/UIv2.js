@@ -19,6 +19,11 @@ for (const dir of curr_dir_list) {
 }
 document.getElementById("body_div").appendChild(path_h3);
 
+var more_info = document.createElement("div");
+more_info.id = "more_info2";
+more_info.style.display = "none";
+document.getElementById("body_div").appendChild(more_info);
+
 var hr = document.createElement("hr");
 document.getElementById("body_div").appendChild(hr);
 
@@ -40,10 +45,20 @@ for (var i = 1; i < lines_pre.length; i++) {
 	line = lines_pre[i];
 	if (line.includes("href")) {
 		if (on_folders) {
-			var to_add = createElement2({name: line.split(">")[1].split("<")[0], folder: on_folders, line: lines_text_pre[i], link: line.split("href=\"")[1].split("\"")[0]}, "element2 folder2");
+			var to_add = createElement2({
+				name: line.split(">")[1].split("<")[0],
+				folder: on_folders,
+				line: lines_text_pre[i],
+				link: line.split("href=\"")[1].split("\"")[0]
+			}, "element2 folder2");
 			document.getElementById("new_listing").appendChild(to_add);
 		} else {
-			var to_add = createElement2({name: line.split(">")[1].split("<")[0], folder: on_folders, line: lines_text_pre[i], link: line.split("href=\"")[1].split("\"")[0]}, "element2");
+			var to_add = createElement2({
+				name: line.split(">")[1].split("<")[0],
+				folder: on_folders,
+				line: lines_text_pre[i],
+				link: line.split("href=\"")[1].split("\"")[0]
+			}, "element2");
 			document.getElementById("new_listing").appendChild(to_add);
 		}
 	} else if (line.includes("Files:")) {
@@ -71,7 +86,7 @@ function createElement2(element, cls) {
 		img_src += "folder-1484.png";
 	} else {
 		a.target = "_blank"; // To open files always in a new tab
-		var link = element.link;
+		var link = element.link.toLowerCase();
 		if (link.endsWith(".mp4") || link.endsWith(".avi") || link.endsWith(".mkv") ||
 				link.endsWith(".mov") || link.endsWith(".wmv") || link.endsWith(".flv") ||
 				link.endsWith(".webm")) {
@@ -107,6 +122,20 @@ function createElement2(element, cls) {
 	div.appendChild(img);
 
 	div.innerHTML += strToHtml(element.line);
+
+	div.addEventListener("mouseover", function(mouseEvent) {
+		if (element.folder || !element.link.toLowerCase().endsWith(".mp4")) {
+			more_info.style.display = 'none';
+
+			return
+		}
+
+		more_info.style.display = 'inline-block';
+		more_info.style.top = mouseEvent.pageY + 15 + 'px';
+		more_info.style.left = mouseEvent.pageX + 15 + 'px';
+
+		more_info.innerHTML = "<a target=\"_blank\" href=\"" + element.link + "?preview=1\">Preview video</a>";
+	});
 
 	return a;
 }
