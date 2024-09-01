@@ -160,7 +160,7 @@ function createElement4(element, cls) {
 
 	if (cls == "element4") {
 		div.innerHTML += "<p class='prevent_select' style='color: gray;'>" +
-				mod_date + " &nbsp;&nbsp;&nbsp; " + size + "</p>";
+				mod_date + " &nbsp;&nbsp; " + size + "</p>";
 		div.innerHTML += "<p class='prevent_select' style='color: gray;'>" + description + "</p>";
 	}
 
