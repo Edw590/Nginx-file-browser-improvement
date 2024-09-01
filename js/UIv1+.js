@@ -42,11 +42,7 @@ for (let item of allLinks) {
 	item.title = href_split[href_split.length-1];
 
 	if (item.innerHTML != "../") {
-		//if (!item.innerHTML.endsWith('/') && !item.innerHTML.endsWith('..&gt;')) {
 		if (len_allLinks <= num_files) {
-			// After all folders come *hopefully* files with a small name, enough to not show ..> on it,
-			// which will mean we just hit the first file and no more dirs will come because they come first.
-			// EDIT: now it's through the size. If the size is present, it's a file.// EDIT: now it's through the size. If the size is present, it's a file.
 			dirs_ended = true;
 		}
 		if (!dirs_ended){
