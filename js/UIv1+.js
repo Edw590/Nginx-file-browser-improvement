@@ -119,7 +119,7 @@ for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
 			i += 2;
 		}
 
-		// Adds a "B" to the size and a space before the size letter in case there's one (example, 1.2M -> 1.2 MB)
+		// Add "iB" to the size and a space before the size letter in case there's one (example, 1.2M -> 1.2 MiB)
 		if (on_files && lines_pre[i]) { // The 2nd check is to check if the line is not undefined
 			var line_2 = lines_pre[i];
 			var last_char = line_2[line_2.length-1];
