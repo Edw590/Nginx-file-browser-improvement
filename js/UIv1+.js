@@ -124,7 +124,7 @@ for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
 			var line_2 = lines_pre[i];
 			var last_char = line_2[line_2.length-1];
 			if (!(last_char >= '0' && last_char <= '9')) {
-				lines_pre[i] = lines_pre[i].substr(0, line_2.length-1) + " " + last_char + "B";
+				lines_pre[i] = lines_pre[i].substr(0, line_2.length-1) + " " + last_char + "iB";
 			} else {
 				lines_pre[i] = lines_pre[i] + " B";
 			}
