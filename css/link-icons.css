@@ -13,7 +13,7 @@ a.link-video:before {
 	content: "\1F4FC\20";
 }
 a.link-image:before {
-	content: "\1F5BC\20";
+	content: "\1F5BC\20\20";
 }
 a.link-audio:before {
 	content: "\1F50A\20";
@@ -24,19 +24,19 @@ a.link-zip:before {
 }
 
 a.link-pdf:before {
-	content: "\1F11F\20";
+	content: "\1F11F\20\20";
 }
 
 a.link-doc:before {
-	content: "\24B9\20";
+	content: "\24B9\20\20";
 }
 a.link-ppt:before {
-    content: "\24C5\20";
+    content: "\24C5\20\20";
 }
 a.link-xls:before {
-    content: "\24CD\20";
+    content: "\24CD\20\20";
 }
 
 a.link-exe:before {
-    content: "\24A0\20";
+    content: "\24A0\20\20";
 }
