@@ -7,7 +7,7 @@ To use, on the Nginx server configuration, set `add_before_body` and `add_after_
 
 Order of pictures: UI v3.1, v3, v2, v1+ (v1 enhanced) and v1.
 
-**Note:** UI v4 is visually almost equal to UI v3.1, but it has support for portrait mode.
+**Note:** UI v4 is visually almost equal to UI v3.1, but has support for portrait mode (responsive UI).
 
 <img src="Pictures/UI v3.1.png" width="500"><img src="Pictures/UI v3.png" width="500"><img src="Pictures/UI v2.png" width="500"><img src="Pictures/UI v1+.png" width="500"><img src="Pictures/UI v1.png" width="500">
 
