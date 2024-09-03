@@ -1,20 +1,21 @@
 // UI v3.1
 
 //crash_script;
-if (getCookie("ui_version") != "v3.1") {
+if (getCookie("ui_version") && getCookie("ui_version") != "v3.1") {
 	crash_script;
 }
 
 // This is built on top of the v1+ page. Don't disable it.
 
 var path_h3 = document.createElement("h3");
+path_h3.id = "path_h3";
 path_h3.innerHTML = "<a class='dir_separator' href='/'>Start</a>";
 var curr_dir_list = document.querySelector("#listing h1").innerText.split(" |>| ");
 var prev_dirs = "/";
 for (const dir of curr_dir_list) {
 	if (dir != "" && dir != "Start") {
 		prev_dirs += encodeURIComponent(dir) + "/";
-		path_h3.innerHTML += " > <a class='dir_separator' href='" + prev_dirs + "'>" + dir + "</a>";
+		path_h3.innerHTML += " &gt; <a class='dir_separator' href='" + prev_dirs + "'>" + dir + "</a>";
 	}
 }
 document.getElementById("body_div").appendChild(path_h3);
@@ -38,7 +39,7 @@ lines_pre = document.querySelector("pre").innerHTML.split("\n");
 lines_text_pre = document.querySelector("pre").innerText.split("\n");
 var on_folders = true;
 var to_add = document.createElement("h3");
-to_add.innerHTML = "<u>Folders</u>"
+to_add.innerHTML = "<u class='normal_text4'>Folders</u>"
 document.getElementById("new_listing").appendChild(to_add);
 for (var i = 1; i < lines_pre.length; i++) {
 	line = lines_pre[i];
@@ -61,7 +62,7 @@ for (var i = 1; i < lines_pre.length; i++) {
 		on_folders = false;
 
 		var to_add = document.createElement("h3");
-		to_add.innerHTML = "<u>Files</u>"
+		to_add.innerHTML = "<u class='normal_text4'>Files</u>"
 		document.getElementById("new_listing").appendChild(to_add);
 	}
 }
@@ -73,12 +74,10 @@ function createElement31(element, cls) {
 	a.appendChild(div);
 	a.className = cls;
 
-	// Add mousehouver text
-	var date_index = element.line.search(/\b\d{2}-[A-Za-z]{3}-\d{4} \d{2}:\d{2}\b/);
-	var tmp = element.line.substring(date_index + 19, element.line.length).split(" ");
-	a.title = decodeURIComponent(element.link).replace("/", "") + " ||| " +
-				element.line.substring(date_index, date_index + 17) + " ||| " +
-				tmp[tmp.length-2] + " " + tmp[tmp.length-1];
+	var filename = decodeURIComponent(element.link).replace("/", "");
+
+	// Add mousehouver text with the full filename
+	a.title = filename;
 
 	var description = "";
 
@@ -125,7 +124,15 @@ function createElement31(element, cls) {
 			description = "Windows executable";
 		} else {
 			img_src += "empty-paper-black-outline-19837.png";
-			description = "File";
+			// Ext after the last dot after the last space on the file name
+			link_spaces = filename.split(" ");
+			link_last_space = link_spaces[link_spaces.length - 1]
+			link_last_space_dots = link_last_space.split(".");
+			if (link_last_space_dots.length > 1) {
+				description = link_last_space_dots[link_last_space_dots.length - 1] + " file";
+			} else {
+				description = "File";
+			}
 		}
 	}
 
@@ -134,16 +141,26 @@ function createElement31(element, cls) {
 	img.src = img_src;
 	div.appendChild(img);
 
-	var filename = a.title.split(" ||| ")[0];
+	var filename_trimmed = filename;
 	var max_len = 50;
-	if (filename.length > max_len) {
-		filename = filename.substring(0, max_len) + "...";
+	if (filename_trimmed.length > max_len) {
+		filename_trimmed = filename_trimmed.substring(0, max_len) + "...";
 	}
-	div.innerHTML += "<p>" + strToHtml(filename) + "</p>";
+	div.innerHTML += "<p>" + strToHtml(filename_trimmed) + "</p>";
 
-	if (cls == "element31") {
-		div.innerHTML += "<p class='prevent_select' style='color: gray;'>" + strToHtml(element.line.substring(date_index, element.line.length)) + "</p>";
+	var date_index = element.line.search(/\b\d{2}-[A-Za-z]{3}-\d{4} \d{2}:\d{2}\b/);
+	var tmp = element.line.substring(date_index + 19, element.line.length).split(" ");
+	var mod_date = element.line.substring(date_index, date_index + 17);
+	var size = tmp[tmp.length-2] + " " + tmp[tmp.length-1];
 
+
+	a.dataMine = decodeURIComponent(element.link).replace("/", "") + " ||| " +
+				element.line.substring(date_index, date_index + 17) + " ||| " +
+				tmp[tmp.length-2] + " " + tmp[tmp.length-1];
+
+	if (cls == "element4") {
+		div.innerHTML += "<p class='prevent_select' style='color: gray;'>" +
+				mod_date + " &nbsp;&nbsp; " + size + "</p>";
 		div.innerHTML += "<p class='prevent_select' style='color: gray;'>" + description + "</p>";
 	}
 
@@ -172,3 +189,6 @@ document.getElementById("search").style.display = "inline-block";
 
 // Enable the order by dropdown
 document.getElementById("order_by").style.display = "inline-block";
+
+// Enable the downloadAll button
+document.getElementById("downloadAll").style.display = "inline-block";

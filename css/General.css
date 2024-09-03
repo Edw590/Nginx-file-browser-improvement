@@ -1,7 +1,7 @@
 /* Global things */
 
 .dir_separator {
-	background-color: rgb(134, 134, 134);
+	background-color: rgb(143, 143, 143);
 	padding: 0px 15px;
 	border-radius: 5px;
 }
@@ -19,6 +19,7 @@
 
 a {
 	text-decoration: none;
+	color: #0076d1;
 	color: black;
 }
 a:hover {
@@ -37,3 +38,34 @@ button:hover,input[type=button]:hover,input[type=submit]:hover{background:#ddd}
 button:focus,input:focus,select:focus,textarea:focus{box-shadow:0 0 0 2px rgba(0,150,191,.67)}
 button:active,input[type=button]:active,input[type=checkbox]:active,input[type=radio]:active,input[type=submit]:active{transform:translateY(2px)}
 button:disabled,input:disabled,select:disabled,textarea:disabled{cursor:not-allowed;opacity:.5}
+
+#title {
+	font-size: 21px;
+}
+
+#footer {
+	font-size: 13px;
+}
+
+#path_h3 {
+	line-height: 1.5;
+}
+
+@media (pointer:none), (pointer:coarse) and (max-aspect-ratio: 13/9) {
+	.dir_separator {
+		padding: 15px 15px;
+	}
+
+	#title {
+		font-size: 35px;
+	}
+
+	#footer, #header {
+		font-size: 25px;
+	}
+
+	#path_h3 {
+		line-height: 2.5;
+		font-size: 35px;
+	}
+}

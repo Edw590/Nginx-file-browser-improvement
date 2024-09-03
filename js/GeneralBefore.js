@@ -39,7 +39,7 @@ function strToHtml(str) {
 }
 
 function search(str) {
-	var elements = document.querySelectorAll("a.element2,.element3,.element31,.element4");
+	var elements = document.querySelectorAll("a.element2,.element3,.element31");
 	for (var i = 0; i < elements.length; i++) {
 		var element = elements[i];
 		if (element.title.split("|||")[0].toLowerCase().includes(str.toLowerCase())) {

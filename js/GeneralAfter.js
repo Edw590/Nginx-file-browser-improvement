@@ -1,4 +1,4 @@
-var elements = document.querySelectorAll("a.element2,.element3,.element31,.element4");
+var elements = document.querySelectorAll("a.element2,.element3,.element31");
 var elements_arr = [];
 for (var i = 0; i < elements.length; i++) {
 	elements_arr.push(elements[i]);

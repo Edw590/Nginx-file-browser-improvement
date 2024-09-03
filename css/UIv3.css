@@ -16,10 +16,13 @@
 	border-radius: 10px;
 	border: 5px solid orange;
 	box-shadow: 5px 10px 10px #505050;
+
+	transition: border-color .15s linear, height .15s linear;
 }
 .element3:hover {
 	border-color: blue;
 	text-decoration: none;
+	height: 100px;
 }
 .element3:active {
 	border-color: red;
@@ -28,6 +31,7 @@
 	width: 55px;
 	height: 55px;
 	margin: 5px 5px;
+	margin-bottom: 20px;
 	float: left;
 }
 .element3 p {
@@ -38,4 +42,32 @@
 	padding: 10px;
 	background: white;
 	position: absolute;
+}
+
+@media (pointer:none), (pointer:coarse) and (max-aspect-ratio: 13/9) {
+	.element3 {
+		font-size: 29px;
+		text-align: center;
+		width: 350px;
+		height: 205px;
+		border: 8px solid orange;
+		border-radius: 10px;
+	}
+	.element3:hover {
+		height: 275px;
+	}
+	.element3 img {
+		width: 80px;
+		height: 80px;
+		margin: 5px 130px;
+	}
+
+	.dir_separator3 {
+		padding: 15px 15px;
+	}
+
+	#more_info3 {
+		padding: 20px;
+		font-size: 35px;
+	}
 }

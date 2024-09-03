@@ -155,7 +155,7 @@ for (let i = lines_pre.length; i >= 1; i--) { // Exclude the Up link line
 
 			date_index = lines_pre[i].search(/\b\d{2}-[A-Za-z]{3}-\d{4} \d{2}:\d{2}\b/);
 			new_line = lines_pre[i].substring(0, date_index);
-			for (let k = 0; k < num_spaces_add/2; k++) {
+			for (let k = 0; k < num_spaces_add; k++) {
 				new_line += " ";
 			}
 			new_line += lines_pre[i].substring(date_index);
